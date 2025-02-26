@@ -21,6 +21,7 @@ public class Blue_1
         }
         public int CountVotes(Response[] responses)
         {
+            if (responses.Length == 0 || responses == null) return 0;
             int count = 0;
             foreach(Response r in responses){
                 if (r.Name == _name && r.Surname == _surname){

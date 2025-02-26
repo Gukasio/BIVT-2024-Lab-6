@@ -1,4 +1,4 @@
-namespace Lab6{
+namespace Lab_6{
 
 public class Blue_5
 {
@@ -28,7 +28,7 @@ public class Blue_5
         private Sportsman[] _sportsmen;
         private int _count;
         public string Name => _name;
-        public int Count  =>_count;
+        private int Count  =>_count;
         public Sportsman[] Sportsmen {
             get{
                 if (_sportsmen == null) return null;
@@ -57,14 +57,14 @@ public class Blue_5
         public int TopPlace{
             get{
             if (_sportsmen == null || _sportsmen.Length == 0) return 0;
-            int min=10000;
-            int top=0;
+            int m=18;
+            
             for(int i=0;i<_sportsmen.Length;i++){
-                if (_sportsmen[i].Place < min && _sportsmen[i].Place > 0){
-                    top=_sportsmen[i].Place;
+                if (_sportsmen[i].Place < m && _sportsmen[i].Place > 0){
+                    m=_sportsmen[i].Place;
                 }
             }
-            return top;
+            return m;
             }
 
         }
@@ -92,7 +92,7 @@ public class Blue_5
         public static void Sort(Team[] teams){
             if (teams == null || teams.Length == 0) return;
             for (int i=1,j=2;i<teams.Length;){
-                if (i ==0 || teams[i-1].SummaryScore < teams[i].SummaryScore){
+                if (i ==0 || teams[i-1].SummaryScore > teams[i].SummaryScore){
                     i=j;
                     j++;
                 }else if(teams[i-1].SummaryScore == teams[i].SummaryScore && teams[i-1].TopPlace < teams[i].TopPlace){

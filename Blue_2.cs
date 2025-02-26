@@ -14,7 +14,7 @@ public class Blue_2
         {
             get
             {
-                if (_marks == null || _marks.GetLength(0) != _marks.GetLength(1)) return default(int[,]);
+                if (_marks == null || _marks.GetLength(1) != _marks.GetLength(0)) return null;
                 int[,] copy = new int[_marks.GetLength(0),_marks.GetLength(1)];
                 Array.Copy(_marks, copy,_marks.GetLength(0));
                 return copy;
@@ -40,7 +40,8 @@ public class Blue_2
         }
         public void Jump(int[] result)
         {
-            if (result == null) return;
+            if (result == null || result.Length == 0) return;
+            if (_marks == null || _marks.GetLength(0) < 2 || _marks.GetLength(1) < 5) return;
             for(int i=0;i<_marks.GetLength(0);i++){
                 if (_marks[i,0]==0){
                     for (int j=0;j<_marks.GetLength(1);j++) {
@@ -52,7 +53,7 @@ public class Blue_2
         }
         public static void Sort(Participant[] array)
         {
-            if (array == null) return;
+            if (array == null || array.Length == 0) return;
             for(int i=1, next=2 ;i< array.Length;i++){
                 if(i==0 || array[i-1].TotalScore >=array[i].TotalScore){
                     i=next;

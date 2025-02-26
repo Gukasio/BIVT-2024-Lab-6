@@ -10,7 +10,7 @@ public class Blue_4
         
         public int[] Scores{
             get{
-                if (_scores == null || _scores.Length == 0) return null;
+                if (_scores == null) return null;
                 int[] sc= new int[_scores.Length];
                 Array.Copy(_scores,sc,_scores.Length);
                 return sc;
@@ -20,7 +20,7 @@ public class Blue_4
             {
                 get
                 {
-                    if (_scores == null || _scores.Length == 0) return 0;
+                    if (_scores == null) return 0;
                     int k = 0;
                     for (int i = 0; i < _scores.Length; i++)
                     {
@@ -35,12 +35,17 @@ public class Blue_4
         }
         public void PlayMatch(int result)
             {
-                if (_scores == null) return;
-
-                int[] copy = new int[_scores.Length + 1];
-                Array.Copy(_scores, copy,_scores.Length);
-                copy[copy.Length - 1] = result;
-                _scores = copy;
+                if (_scores == null || _scores.Length==0){
+                    int[] s = new int[1];
+                    s[0] = result;
+                    _scores = new int[1];
+                    Array.Copy(s, _scores, s.Length);
+                }else{
+                    int[] copy = new int[_scores.Length + 1];
+                    Array.Copy(_scores, copy,_scores.Length);
+                    copy[copy.Length - 1] = result;
+                    _scores = copy;
+                }
             }
         public void Print(){
             Console.WriteLine($"{Name} - {Scores}");
@@ -74,7 +79,7 @@ public class Blue_4
             _teamid = 0;
         }
         public void Add(Team team){
-            if (_teams == null) return;
+            if (_teams == null || _teams.Length == 0 || _teamid >= _teams.Length) return;
             if(_teamid < _teams.Length){
                 _teams[_teamid] = team;
                 _teamid++;
@@ -82,7 +87,8 @@ public class Blue_4
         }
         public void Add(Team[] teams)
             {
-                if (_teams.Length == 0 || _teams == null || teams == null || teams.Length == 0 || _teamid >= _teams.Length) return;
+                if (_teams.Length == 0 || _teams == null || _teamid >= _teams.Length) return;
+                if (teams == null || teams.Length == 0) return;
                 int i = 0;
                 while (_teamid < _teams.Length && i < teams.Length)
                 {
@@ -92,7 +98,7 @@ public class Blue_4
                 }
             }
         public void Sort(){
-            if (_teams == null) return;
+            if (_teams == null || _teams.Length ==0) return;
             for(int i=1, next=2 ;i< _teams.Length;i++){
                 if(i == 0 || _teams[i-1].TotalScore < _teams[i].TotalScore){
                     i = next;

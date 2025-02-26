@@ -11,6 +11,7 @@ public class Blue_3
         public int[] PenaltyTimes{
             get{
                 if (_penaltytimes== null) return null;
+                if (_penaltytimes.Length==0) return _penaltytimes;
                 int[] p =new int[_penaltytimes.Length];
                 Array.Copy(_penaltytimes, p , _penaltytimes.Length);
                 /*for(int i =0;i<_penaltytimes.Length;i++){
@@ -22,6 +23,7 @@ public class Blue_3
         }
         public int TotalTime{
             get{
+                if(_penaltytimes == null || _penaltytimes.Length==0) return 0;
                 int s=0;
                 for (int i =0;i<_penaltytimes.Length;i++){
                     s+=_penaltytimes[i];
@@ -31,6 +33,7 @@ public class Blue_3
         }
         public bool IsExpelled{
             get{
+                if (_penaltytimes == null || _penaltytimes.Length==0) return true;
                 for (int i =0;i<_penaltytimes.Length;i++){
                     if (_penaltytimes[i] == 10)
                     {
@@ -49,14 +52,20 @@ public class Blue_3
         public void PlayMatch(int time)
             {
                 if (_penaltytimes == null) return;
-
+                if (_penaltytimes.Length == 0)
+                {
+                    int[] p = new int[1];
+                    p[0] = time;
+                    _penaltytimes = new int[1];
+                    Array.Copy(p, _penaltytimes, p.Length);
+                }
                 int[] pcopy = new int[_penaltytimes.Length + 1];
                 Array.Copy(_penaltytimes, pcopy,_penaltytimes.Length);
                 pcopy[pcopy.Length - 1] = time;
                 _penaltytimes = pcopy;
             }
         public static void Sort(Participant[] array){
-            if (array == null) return;
+            if (array == null || array.Length == 0) return;
             for(int i=1, next=2 ;i< array.Length;i++){
                 if(i==0 || array[i].TotalTime <= array[i+1].TotalTime){
                     i=next;
