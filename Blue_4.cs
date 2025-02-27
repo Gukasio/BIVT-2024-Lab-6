@@ -1,16 +1,16 @@
-namespace Lab6{
+namespace Lab_6{
 
 public class Blue_4
 {
     public struct Team{
         private string _name;
         private int[] _scores;
-        
         public string Name => _name;
         
         public int[] Scores{
             get{
                 if (_scores == null) return null;
+                
                 int[] sc= new int[_scores.Length];
                 Array.Copy(_scores,sc,_scores.Length);
                 return sc;
@@ -35,17 +35,12 @@ public class Blue_4
         }
         public void PlayMatch(int result)
             {
-                if (_scores == null || _scores.Length==0){
-                    int[] s = new int[1];
-                    s[0] = result;
-                    _scores = new int[1];
-                    Array.Copy(s, _scores, s.Length);
-                }else{
-                    int[] copy = new int[_scores.Length + 1];
-                    Array.Copy(_scores, copy,_scores.Length);
-                    copy[copy.Length - 1] = result;
-                    _scores = copy;
-                }
+                if (_scores == null) return;
+                int[] copy = new int[_scores.Length + 1];
+                Array.Copy(_scores, copy,_scores.Length);
+                copy[copy.Length - 1] = result;
+                _scores = copy;
+                
             }
         public void Print(){
             Console.WriteLine($"{Name} - {Scores}");
@@ -58,19 +53,8 @@ public class Blue_4
         private int _teamid;
         public string Name => _name;
         public int TeamId => _teamid;
-        public Team[] Teams{
-            get
-                {
-                    if (_teams == null) return null;
-                    if (_teams.Length==0) return _teams;
-                    Team[] t = new Team[_teams.Length];
-                    for (int i = 0; i < t.Length;i++)
-                    {
-                        t[i] = _teams[i];
-                    }
-                    return t;
-                }
-        }
+        public Team[] Teams => _teams;
+
             
         
         public Group(string name){
@@ -87,8 +71,7 @@ public class Blue_4
         }
         public void Add(Team[] teams)
             {
-                if (_teams.Length == 0 || _teams == null || _teamid >= _teams.Length) return;
-                if (teams == null || teams.Length == 0) return;
+                if (_teams == null || teams == null || teams.Length == 0) return;
                 int i = 0;
                 while (_teamid < _teams.Length && i < teams.Length)
                 {
@@ -98,17 +81,17 @@ public class Blue_4
                 }
             }
         public void Sort(){
-            if (_teams == null || _teams.Length ==0) return;
-            for(int i=1, next=2 ;i< _teams.Length;i++){
-                if(i == 0 || _teams[i-1].TotalScore < _teams[i].TotalScore){
-                    i = next;
-                    next++;
-
-                }else{
-                    (_teams[i-1],_teams[i])=(_teams[i],_teams[i-1]);
-                    i--;
+            if (_teams == null) return;
+                for (int i = 0; i < _teams.Length; i++)
+                {
+                    for (int j = 0; j < _teams.Length - i - 1; j++)
+                    {
+                        if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
+                        {
+                            (_teams[j], _teams[j + 1]) = (_teams[j + 1], _teams[j]);
+                        }
+                    }
                 }
-            }
         }
         public static Group Merge(Group group1, Group group2, int size){
             Group fin = new Group("Финалисты");
@@ -118,8 +101,10 @@ public class Blue_4
             while(i<c && j<c){
                 if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore){
                     fin.Add(group1.Teams[i]);
+                    i++;
                 }else{
                     fin.Add(group2.Teams[j]);
+                    j++;
                 }
 
             }

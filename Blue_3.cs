@@ -1,4 +1,4 @@
-namespace Lab6{
+namespace Lab_6{
 
 public class Blue_3
 {
@@ -13,7 +13,7 @@ public class Blue_3
                 if (_penaltytimes== null) return null;
                 if (_penaltytimes.Length==0) return _penaltytimes;
                 int[] p =new int[_penaltytimes.Length];
-                Array.Copy(_penaltytimes, p , _penaltytimes.Length);
+                Array.Copy(_penaltytimes, p, _penaltytimes.Length);
                 /*for(int i =0;i<_penaltytimes.Length;i++){
                     p[i] = _penaltytimes[i];
                 }*/
@@ -23,12 +23,8 @@ public class Blue_3
         }
         public int TotalTime{
             get{
-                if(_penaltytimes == null || _penaltytimes.Length==0) return 0;
-                int s=0;
-                for (int i =0;i<_penaltytimes.Length;i++){
-                    s+=_penaltytimes[i];
-                }
-                return s;
+                if (_penaltytimes == null || _penaltytimes.Length == 0) return 0;
+                    return _penaltytimes.Sum();
             }
         }
         public bool IsExpelled{
@@ -47,35 +43,33 @@ public class Blue_3
         public Participant(string name, string surname){
             _name = name;
             _surname = surname;
-            _penaltytimes = new int[10];
+            _penaltytimes = new int[0];
         }
         public void PlayMatch(int time)
             {
-                if (_penaltytimes == null) return;
-                if (_penaltytimes.Length == 0)
+                if (_penaltytimes== null) return;
+                int[] p = new int[_penaltytimes.Length+1];
+                for (int i=0; i<p.Length-1; i++)
                 {
-                    int[] p = new int[1];
-                    p[0] = time;
-                    _penaltytimes = new int[1];
-                    Array.Copy(p, _penaltytimes, p.Length);
+                    p[i] = _penaltytimes[i];
                 }
-                int[] pcopy = new int[_penaltytimes.Length + 1];
-                Array.Copy(_penaltytimes, pcopy,_penaltytimes.Length);
-                pcopy[pcopy.Length - 1] = time;
-                _penaltytimes = pcopy;
+                p[p.Length-1] = time;
+                _penaltytimes = p;
             }
-        public static void Sort(Participant[] array){
-            if (array == null || array.Length == 0) return;
-            for(int i=1, next=2 ;i< array.Length;i++){
-                if(i==0 || array[i].TotalTime <= array[i+1].TotalTime){
-                    i=next;
-                    next++;
-                }else{
-                    (array[i],array[i+1])=(array[i+1],array[i]);
-                    i--;
+        public static void Sort(Participant[] array)
+            {
+                if (array == null) return;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    for (int j = 0; j < array.Length - i - 1; j++)
+                    {
+                        if (array[j].TotalTime > array[j + 1].TotalTime)
+                        {
+                            (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                        }
+                    }
                 }
             }
-        }
         public void Print(){
             Console.WriteLine($"{Name} {Surname} - {TotalTime}");
         }

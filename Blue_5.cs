@@ -91,17 +91,20 @@ public class Blue_5
         }
         public static void Sort(Team[] teams){
             if (teams == null || teams.Length == 0) return;
-            for (int i=1,j=2;i<teams.Length;){
-                if (i ==0 || teams[i-1].SummaryScore > teams[i].SummaryScore){
-                    i=j;
-                    j++;
-                }else if(teams[i-1].SummaryScore == teams[i].SummaryScore && teams[i-1].TopPlace < teams[i].TopPlace){
-                    i=j;
-                    j++;
-                }else{
-                    (teams[i-1],teams[i])= (teams[i],teams[i-1]);              
+                for (int i = 0; i < teams.Length - 1; i++)
+                {
+                    for (int j = 0; j < teams.Length - i - 1; j++)
+                    {
+                        if (teams[j + 1].SummaryScore > teams[j].SummaryScore)
+                        {
+                            (teams[j + 1], teams[j]) = (teams[j], teams[j + 1]);
+                        }
+                        else if (teams[j + 1].SummaryScore == teams[j].SummaryScore && teams[j + 1].TopPlace < teams[j].TopPlace)
+                        {
+                            (teams[j],teams[j+1])=(teams[j+1],teams[j]);
+                        }
                     }
-            }
+        }
         }
         public void Print()
             {

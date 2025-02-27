@@ -1,7 +1,7 @@
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 
-namespace Lab6{
+namespace Lab_6{
 
 public class Blue_1
 {
