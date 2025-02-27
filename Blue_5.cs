@@ -28,18 +28,7 @@ public class Blue_5
         private Sportsman[] _sportsmen;
         private int _count;
         public string Name => _name;
-        private int Count  =>_count;
-        public Sportsman[] Sportsmen {
-            get{
-                if (_sportsmen == null) return null;
-                Sportsman[] sp = new Sportsman[_sportsmen.Length];
-                for (int i=0;i<_sportsmen.Length;i++){
-                    sp[i] = _sportsmen[i];
-                    
-                }
-                return sp;
-            }
-        }
+        public Sportsman[] Sportsmen => _sportsmen;
         public int SummaryScore{
             get{
                 if (_sportsmen == null || _sportsmen.Length == 0) return 0;
@@ -70,7 +59,7 @@ public class Blue_5
         }
         public Team(string name){
             _name=name;
-            Sportsman[] _sportsmen = new Sportsman[6];
+            _sportsmen = new Sportsman[6];
             _count=0;
         }
         public void Add(Sportsman sportsman){
@@ -82,11 +71,12 @@ public class Blue_5
         }
         public void Add(Sportsman[] sportsman){
             if (_sportsmen == null || _sportsmen.Length==0) return;
+            if (sportsman == null || _count >= _sportsmen.Length) return;
             int i=0;
-            if(_count < _sportsmen.Length){
+            if(_count < _sportsmen.Length && i < sportsman.Length){
                 _sportsmen[_count] = sportsman[i];
-                i++;
                 _count++;
+                i++;
             }
         }
         public static void Sort(Team[] teams){

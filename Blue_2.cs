@@ -9,9 +9,9 @@ public class Blue_2
         private string _surname;
         private int[,] _marks;
         private int _count;
+
         public string Name => _name;
         public string Surname => _surname;
-        public int Count => _count;
         public int[,] Marks
         {
             get
@@ -46,14 +46,14 @@ public class Blue_2
         {
             _name = name;
             _surname = surname;
-            _marks = new int[,]{{0,0,0,0,0},{0,0,0,0,0}};
+            _marks = new int[2,5];
             _count=0;
         }
         public void Jump(int[] result)
         {
             if (result == null || result.Length == 0|| _count>1) return;
             if (_marks == null || _marks.GetLength(0) == 0) return;
-            for (int i = 0; i < result.Length; i++)
+            for (int i = 0; i < 5; i++)
             {
                 _marks[_count, i] = result[i];
             }

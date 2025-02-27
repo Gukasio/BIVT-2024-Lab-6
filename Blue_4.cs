@@ -52,7 +52,6 @@ public class Blue_4
         private Team[] _teams;
         private int _teamid;
         public string Name => _name;
-        public int TeamId => _teamid;
         public Team[] Teams => _teams;
 
             
