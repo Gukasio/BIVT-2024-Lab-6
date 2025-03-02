@@ -15,8 +15,8 @@ public class Blue_5
             _place = 0;
         }
         public void SetPlace(int place){
-            if (_place != 0) return;
-            this._place = place;
+            if (place<=0||_place != 0) return;
+            _place = place;
         }
         public void Print()
             {
@@ -26,12 +26,12 @@ public class Blue_5
     public struct Team{
         private string _name;
         private Sportsman[] _sportsmen;
-        private int _count;
+        private int _kol;
         public string Name => _name;
         public Sportsman[] Sportsmen => _sportsmen;
         public int SummaryScore{
             get{
-                if (_sportsmen == null || _sportsmen.Length == 0) return 0;
+                if (_sportsmen == null) return 0;
                 int s=0;
                 for (int i=0;i<_sportsmen.Length;i++){
                     if (_sportsmen[i].Place == 1) {s+=5;}
@@ -45,7 +45,7 @@ public class Blue_5
         }
         public int TopPlace{
             get{
-            if (_sportsmen == null || _sportsmen.Length == 0) return 0;
+            if (_sportsmen == null) return 0;
             int m=18;
             
             for(int i=0;i<_sportsmen.Length;i++){
@@ -60,22 +60,21 @@ public class Blue_5
         public Team(string name){
             _name=name;
             _sportsmen = new Sportsman[6];
-            _count=0;
+            _kol=0;
         }
         public void Add(Sportsman sportsman){
-            if (_sportsmen == null || _sportsmen.Length==0) return;
-            if(_count < _sportsmen.Length){
-                _sportsmen[_count] = sportsman;
-                _count++;
+            if (_sportsmen == null) return;
+            if(_kol < _sportsmen.Length){
+                _sportsmen[_kol] = sportsman;
+                _kol++;
             }
         }
         public void Add(Sportsman[] sportsman){
-            if (_sportsmen == null || _sportsmen.Length==0) return;
-            if (sportsman == null || _count >= _sportsmen.Length) return;
+            if (_sportsmen == null || _sportsmen.Length==0||sportsman == null || _kol >= _sportsmen.Length) return;
             int i=0;
-            if(_count < _sportsmen.Length && i < sportsman.Length){
-                _sportsmen[_count] = sportsman[i];
-                _count++;
+            while (_kol < _sportsmen.Length && i < sportsman.Length){
+                _sportsmen[_kol] = sportsman[i];
+                _kol++;
                 i++;
             }
         }
